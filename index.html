@@ -1,0 +1,274 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyBuddy AI 2.0</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>StudyBuddy AI</h1>
+        <p>Your Personal AI Learning Assistant</p>
+    </header>
+
+
+    <!-- AUTHENTICATION -->
+    <section class="auth-section">
+        <h2>🔐 Student Account</h2>
+
+        <form id="signup-form">
+            <h3>Create Account</h3>
+
+            <input
+                type="email"
+                id="signup-email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <input
+                type="password"
+                id="signup-password"
+                placeholder="Create password (at least 6 characters)"
+                minlength="6"
+                required
+            >
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <hr>
+
+        <form id="login-form">
+            <h3>Login</h3>
+
+            <input
+                type="email"
+                id="login-email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <input
+                type="password"
+                id="login-password"
+                placeholder="Enter your password"
+                required
+            >
+
+            <button type="submit">Login</button>
+        </form>
+
+        <button id="logout-button" hidden>Logout</button>
+
+        <p id="auth-message"></p>
+    </section>
+
+
+    <!-- STUDY PLANNER -->
+    <section class="study-planner">
+        <h2>📅 AI Study Planner</h2>
+        <p>Organize your daily study goals.</p>
+
+        <input
+            type="text"
+            id="study-task"
+            placeholder="Enter your study task..."
+        >
+
+        <input
+            type="date"
+            id="study-date"
+        >
+
+        <button id="add-task">
+            Add Study Task
+        </button>
+
+        <div id="task-list">
+            Your study tasks will appear here.
+        </div>
+    </section>
+
+
+    <!-- FLASHCARDS -->
+    <section class="flashcards">
+        <h2>🗂️ AI Flashcards</h2>
+        <p>Create question-and-answer flashcards.</p>
+
+        <input
+            type="text"
+            id="flash-question"
+            placeholder="Enter your question..."
+        >
+
+        <textarea
+            id="flash-answer"
+            placeholder="Enter the answer..."
+            rows="3"
+        ></textarea>
+
+        <button id="add-flashcard">
+            Add Flashcard
+        </button>
+
+        <div id="flashcard-list">
+            Your flashcards will appear here.
+        </div>
+    </section>
+
+
+    <!-- STUDY PROGRESS -->
+    <section class="study-progress">
+        <h2>📊 Study Progress</h2>
+        <p>Track your completed study tasks.</p>
+
+        <h3 id="progress-text">0 tasks completed</h3>
+
+        <div class="progress-bar">
+            <div id="progress-fill"></div>
+        </div>
+    </section>
+
+
+    <main>
+
+        <!-- AI TUTOR -->
+        <section class="ai-tutor">
+            <h2>🤖 AI Tutor</h2>
+            <p>Ask any academic question and learn something new.</p>
+
+            <form id="tutor-form">
+                <textarea
+                    id="question"
+                    placeholder="Ask your study question here..."
+                    required
+                ></textarea>
+
+                <button type="submit" id="ask-button">
+                    Ask AI Tutor
+                </button>
+            </form>
+
+            <div id="ai-response">
+                Your AI explanation will appear here.
+            </div>
+
+            <p id="ai-source"></p>
+
+            <h3>📚 Previous Questions</h3>
+
+            <div id="tutor-history">
+                Your previous questions will appear here.
+            </div>
+        </section>
+
+
+        <!-- FEATURE CARDS -->
+        <section class="features">
+
+            <div class="card">
+                <h3>🤖 AI Tutor</h3>
+                <p>Understand difficult topics.</p>
+                <button onclick="showFeature('AI Tutor')">
+                    Start Learning
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>📝 Smart Notes</h3>
+                <p>Create simple study notes.</p>
+                <button onclick="showFeature('Smart Notes')">
+                    Create Notes
+                </button>
+            </div>
+
+            <div class="card">
+                <h3>🧠 Quiz Generator</h3>
+                <p>Test your knowledge.</p>
+                <button onclick="showFeature('Quiz Generator')">
+                    Take Quiz
+                </button>
+            </div>
+
+        </section>
+
+        <p id="message"></p>
+
+    </main>
+
+
+    <!-- QUIZ GENERATOR -->
+    <section class="quiz-generator">
+        <h2>🧠 AI Quiz Generator</h2>
+        <p>Generate a quiz from your study material.</p>
+
+        <textarea
+            id="quiz-material"
+            placeholder="Enter your topic or study material..."
+            rows="5"
+        ></textarea>
+
+        <button id="generate-quiz">
+            Generate Quiz
+        </button>
+
+        <div id="quiz-result">
+            Your quiz will appear here.
+        </div>
+
+        <h3>📚 Previous Quizzes</h3>
+
+        <div id="quiz-history">
+            Your previous quizzes will appear here.
+        </div>
+    </section>
+
+
+    <!-- SMART NOTES -->
+    <section class="smart-notes">
+        <h2>📝 Smart Notes Generator</h2>
+        <p>Turn your study material into simple notes.</p>
+
+        <textarea
+            id="study-material"
+            placeholder="Paste your study material here..."
+            rows="6"
+        ></textarea>
+
+        <button id="generate-notes">
+            Generate Smart Notes
+        </button>
+
+        <div id="notes-result">
+            Your notes will appear here.
+        </div>
+
+        <p id="notes-source"></p>
+
+        <h3>📚 Saved Notes</h3>
+
+        <div id="notes-history">
+            Your saved notes will appear here.
+        </div>
+    </section>
+
+
+    <!-- FIREBASE APP CHECK DEBUG MODE -->
+    <!-- Keep enabled only during local App Check debugging.
+         Remove before production deployment. -->
+    <script>
+        self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+    </script>
+
+    <!-- MAIN JAVASCRIPT -->
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>
