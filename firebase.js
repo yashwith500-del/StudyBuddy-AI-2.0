@@ -18,7 +18,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-firestore.js";
 
 import {
-    getAuth
+    getAuth,
+    sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/13.3.0/firebase-auth.js";
 
 // Firebase configuration
@@ -29,13 +30,20 @@ const firebaseConfig = {
   storageBucket: "studybuddy-ai-2026-940b3.firebasestorage.app",
   messagingSenderId: "3540929130",
   appId: "1:3540929130:web:16b7325548129ce7c85813",
-  measurementId: "G-2Q7H4KM2QS"    // Keep your existing Firebase configuration here.
+  measurementId: "G-2Q7H4KM2QS"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 console.log("Firebase connected successfully!");
+
+// Enable App Check debug mode only on localhost, never on live GitHub Pages
+if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+    self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+} else {
+    self.FIREBASE_APPCHECK_DEBUG_TOKEN = false;
+}
 
 // Initialize App Check
 const appCheck = initializeAppCheck(app, {
@@ -61,5 +69,5 @@ const auth = getAuth(app);
 
 console.log("Firebase AI model initialized!");
 
-export { app, ai, db, auth, appCheck };
+export { app, ai, db, auth, appCheck, sendPasswordResetEmail };
 
